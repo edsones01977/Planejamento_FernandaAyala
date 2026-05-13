@@ -1,0 +1,1127 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Planejamento Patrimonial — F.R.R.A.</title>
+<link rel="icon" href="cordier-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#1F3864; --navy-deep:#142849; --navy-light:#2E4F8A;
+  --gold:#BF8F00; --gold-light:#E0AC2B;
+  --green:#548235; --red:#C00000; --amber:#FFA500;
+  --bg:#F7F8FA; --card:#FFFFFF; --border:#E2E5EB; --text:#1A2540; --muted:#6B7488;
+  --light:#D9E1F2; --lighter:#F2F2F2; --note:#FFF2CC; --alert:#FCE4D6; --ok:#C6E0B4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:15px}
+/* LOGIN OVERLAY */
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 100%);display:flex;align-items:center;justify-content:center;z-index:99999;padding:20px}
+.login-box{background:#fff;border-radius:16px;padding:48px 40px;max-width:420px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.3);text-align:center}
+.login-box img{width:64px;height:64px;margin-bottom:18px;border-radius:8px}
+.login-box h2{font-size:22px;color:var(--navy);margin-bottom:6px;font-weight:800}
+.login-box p{font-size:13px;color:var(--muted);margin-bottom:28px}
+.login-box input{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:12px;outline:none;transition:border-color .15s}
+.login-box input:focus{border-color:var(--gold)}
+.login-box button{width:100%;padding:14px;background:var(--gold);color:#fff;border:0;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px;transition:background .15s}
+.login-box button:hover{background:var(--gold-light)}
+.login-error{color:var(--red);font-size:12px;margin-top:8px;display:none}
+.login-footer{margin-top:24px;font-size:11px;color:var(--muted)}
+body.locked{overflow:hidden}
+body.locked main,body.locked .sidebar,body.locked .top-actions{filter:blur(10px);pointer-events:none}
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;height:100vh;width:240px;background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 100%);color:#fff;padding:24px 0;overflow-y:auto;z-index:100;box-shadow:2px 0 10px rgba(0,0,0,.05)}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px}
+.sidebar-logo img{width:38px;height:38px;border-radius:6px}
+.sidebar-logo-text{font-size:13px;font-weight:600;letter-spacing:.5px;line-height:1.2}
+.sidebar-logo-text small{display:block;font-size:10px;font-weight:400;opacity:.7;margin-top:2px}
+.sidebar nav{padding:0 12px}
+.sidebar nav a{display:flex;align-items:center;gap:10px;padding:11px 14px;color:rgba(255,255,255,.78);text-decoration:none;border-radius:8px;font-size:13px;margin-bottom:2px;transition:all .2s}
+.sidebar nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.sidebar nav a.active{background:var(--gold);color:#fff;font-weight:600}
+.sidebar nav a .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(255,255,255,.12);border-radius:5px;font-size:11px;font-weight:600}
+.sidebar nav a.active .num{background:rgba(0,0,0,.2)}
+.sidebar-footer{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;font-size:10px;opacity:.5;border-top:1px solid rgba(255,255,255,.1)}
+/* TOP ACTIONS */
+.top-actions{position:fixed;top:18px;right:24px;display:flex;gap:8px;z-index:99}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;background:#fff;color:var(--navy);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold-light);color:#fff;border-color:var(--gold-light)}
+/* MAIN */
+main{margin-left:240px;padding:0 48px 60px}
+.section{padding:60px 0 40px;max-width:1180px;margin:0 auto}
+.section-tag{display:inline-block;padding:5px 12px;background:var(--light);color:var(--navy);border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:32px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.15}
+.section-subtitle{font-size:16px;color:var(--muted);margin-bottom:32px;max-width:760px}
+/* HERO */
+#hero{padding:80px 0 40px}
+.hero-title{font-size:42px;font-weight:800;color:var(--navy);line-height:1.1;margin-bottom:14px}
+.hero-title em{font-style:normal;background:linear-gradient(120deg,var(--gold) 0%,var(--gold-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:18px;color:var(--muted);margin-bottom:28px;max-width:760px}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:32px}
+.hero-meta span{display:flex;align-items:center;gap:6px}
+.hero-meta strong{color:var(--text);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:transform .2s}
+.kpi:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(31,56,100,.08)}
+.kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.kpi-value{font-size:26px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:12px;color:var(--muted);margin-top:6px}
+/* RESUMO UNIFICADO */
+.resumo-unico{background:linear-gradient(135deg,#FFF8E1 0%,#FFF2CC 100%);border-left:4px solid var(--gold);border-radius:12px;padding:26px 30px;margin-top:40px}
+.resumo-unico h3{font-size:14px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.resumo-unico p{font-size:15px;line-height:1.75;color:var(--text);margin-bottom:12px}
+.resumo-unico p:last-of-type{margin-bottom:0}
+.resumo-unico strong{color:var(--navy);font-weight:700}
+.resumo-unico .destacar{background:#fff;padding:1px 6px;border-radius:4px;border:1px solid var(--gold);font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.resumo-unico .stvm-nota{background:#fff;border-radius:8px;padding:12px 14px;font-size:13px;color:var(--muted);border-left:3px solid var(--navy);margin-top:14px;line-height:1.55}
+.resumo-unico .stvm-nota strong{color:var(--navy)}
+/* CARDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .2s}
+.card-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:.6px}
+.card-value{font-size:24px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.card-meta{font-size:12px;color:var(--muted)}
+/* BANNER BTG */
+.banner-btg{background:linear-gradient(135deg,var(--ok) 0%,#D7E8C2 100%);border:1px solid var(--green);border-radius:12px;padding:18px 24px;margin:20px 0;display:flex;align-items:center;gap:16px}
+.banner-btg-icon{font-size:32px}
+.banner-btg-text{flex:1}
+.banner-btg-text h4{color:#33691E;font-size:15px;font-weight:700;margin-bottom:4px}
+.banner-btg-text p{color:var(--text);font-size:13px;line-height:1.5}
+.banner-btg-text strong{color:#33691E}
+/* TABLE */
+.table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:13px}
+.table th{background:var(--navy);color:#fff;text-align:left;padding:14px 16px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+.table td{padding:13px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+.table tr:last-child td{border-bottom:0}
+.table tr:hover{background:rgba(31,56,100,.02)}
+.table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.table .pos{color:var(--green)}
+.table .neg{color:var(--red)}
+.tag-inst{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.tag-bradesco{background:#FFEBEE;color:#C62828}
+.tag-agora{background:#E3F2FD;color:#1565C0}
+.tag-btg{background:#E8F5E9;color:#2E7D32}
+.liq-subhead{font-size:13px;font-weight:700;color:var(--navy);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:8px}
+.liq-subhead .dot{display:inline-block;width:10px;height:10px;border-radius:50%}
+.liq-subhead .dot.green{background:var(--green)}
+.liq-subhead .dot.navy{background:var(--navy)}
+.liq-subhead .dot.gray{background:#9CA3AF}
+/* PROPOSTAS */
+.filter-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filter-btn{padding:8px 16px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s;font-family:inherit}
+.filter-btn:hover{border-color:var(--navy);color:var(--navy)}
+.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.propostas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.proposta-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:all .2s;position:relative}
+.proposta-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(31,56,100,.1);border-color:var(--navy-light)}
+.proposta-card.best{border-color:var(--gold);background:linear-gradient(135deg,#fff 0%,#FFF8E1 100%)}
+.proposta-card.preliminar{border-style:dashed}
+.proposta-card.descartado{opacity:.55}
+.proposta-card.refazer{border-color:var(--amber);background:linear-gradient(135deg,#fff 0%,#FFF4E5 100%)}
+.proposta-card.selected{border-color:var(--navy);background:linear-gradient(135deg,#fff 0%,#E8F0FE 100%);box-shadow:0 0 0 3px rgba(31,56,100,.15)}
+.proposta-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.proposta-nome{font-size:15px;font-weight:700;color:var(--navy)}
+.proposta-cenario{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;background:var(--lighter);color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.proposta-cenario.a{background:#E3F2FD;color:#1565C0}
+.proposta-cenario.b{background:#F3E5F5;color:#7B1FA2}
+.proposta-modalidade{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.proposta-modalidade.residencial{background:#E8F5E9;color:#2E7D32}
+.proposta-modalidade.comercial{background:#FFF3E0;color:#E65100}
+.proposta-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #F0F2F5;font-size:13px}
+.proposta-row:last-of-type{border-bottom:0}
+.proposta-row .label{color:var(--muted);font-size:12px}
+.proposta-row .value{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.proposta-row .cet{font-size:14px;color:var(--navy)}
+.proposta-row .parcela{font-size:14px;color:var(--gold)}
+.proposta-badge{margin-top:12px;padding:8px 10px;border-radius:6px;font-size:11px;font-weight:600;text-align:center}
+.badge-best{background:var(--gold);color:#fff}
+.badge-preliminar{background:#FFE0B2;color:#E65100}
+.badge-refazer{background:var(--amber);color:#fff}
+.badge-descartado{background:#FFCDD2;color:#B71C1C}
+.badge-validado{background:var(--ok);color:#33691E}
+.badge-fixa{background:#E1BEE7;color:#4A148C;display:inline-block;margin-left:6px;padding:2px 6px;border-radius:3px;font-size:10px}
+/* SIMULADOR */
+.simulador{background:linear-gradient(135deg,#fff 0%,#F8F9FB 100%);border:2px solid var(--gold);border-radius:16px;padding:32px;margin-top:16px}
+.sim-grid{display:grid;grid-template-columns:340px 1fr;gap:32px}
+.sim-controls{padding-right:24px;border-right:1px solid var(--border)}
+.sim-control{margin-bottom:24px}
+.sim-control label{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.sim-control label .info{cursor:help;color:var(--muted);font-size:14px;text-transform:none;font-weight:400}
+.toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#F0F2F5;padding:4px;border-radius:8px}
+.toggle button{padding:10px;background:transparent;border:0;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--muted)}
+.toggle button.active{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.select{width:100%;padding:11px 12px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;font-weight:600;color:var(--text);cursor:pointer}
+.slider-wrap{position:relative}
+.slider{width:100%;-webkit-appearance:none;height:6px;background:var(--lighter);border-radius:3px;outline:none}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--gold);border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 6px rgba(191,143,0,.3)}
+.slider::-moz-range-thumb{width:20px;height:20px;background:var(--gold);border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 6px rgba(191,143,0,.3)}
+.slider-value{font-size:22px;font-weight:800;color:var(--gold);text-align:center;margin-top:8px;font-variant-numeric:tabular-nums}
+.reserva-box{background:linear-gradient(135deg,var(--note) 0%,#FFF8E1 100%);border:2px solid var(--gold);border-radius:12px;padding:18px;margin-top:4px}
+.reserva-box label{margin-bottom:6px}
+.reserva-input{display:flex;align-items:center;gap:8px;margin-top:6px}
+.reserva-input span{font-size:14px;color:var(--muted);font-weight:600}
+.reserva-input input{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-weight:700;font-family:inherit;font-variant-numeric:tabular-nums;color:var(--navy)}
+.reserva-hint{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.4}
+.aporte-box{background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%);border:2px solid var(--green);border-radius:12px;padding:18px;margin-top:16px}
+.aporte-box label{margin-bottom:6px;color:#2E7D32}
+.aporte-input{display:flex;align-items:center;gap:8px;margin-top:6px}
+.aporte-input span{font-size:14px;color:#2E7D32;font-weight:700}
+.aporte-input input{flex:1;padding:8px 10px;border:1px solid #A5D6A7;border-radius:6px;font-size:14px;font-weight:700;font-family:inherit;font-variant-numeric:tabular-nums;color:#2E7D32}
+.aporte-hint{font-size:11px;color:#33691E;margin-top:8px;line-height:1.45}
+.aporte-box .slider::-webkit-slider-thumb{background:var(--green);box-shadow:0 2px 6px rgba(84,130,53,.4)}
+.aporte-box .slider::-moz-range-thumb{background:var(--green);box-shadow:0 2px 6px rgba(84,130,53,.4)}
+/* RESULTS */
+.sim-results{display:flex;flex-direction:column;gap:14px}
+.result-item{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:10px;transition:all .3s}
+.result-item.highlight{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);border-color:var(--navy)}
+.result-item.highlight .result-label,.result-item.highlight .result-value{color:#fff}
+.result-item.folga-pos{background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%);border-color:var(--green)}
+.result-item.folga-neg{background:linear-gradient(135deg,#FFEBEE 0%,#FFCDD2 100%);border-color:var(--red)}
+.result-item.quitacao-box{background:linear-gradient(135deg,#FFF8E1 0%,#FFE082 100%);border-color:var(--gold);border-width:2px}
+.result-item.aporte-row{background:linear-gradient(135deg,#E8F5E9 0%,#DCEDC8 100%);border-color:var(--green)}
+.result-item.aporte-row .result-label,.result-item.aporte-row .result-value{color:#2E7D32}
+.result-label{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
+.result-value{font-size:18px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;transition:all .3s}
+.result-value.pos{color:var(--green)}
+.result-value.neg{color:var(--red)}
+/* TOOLTIPS */
+[data-tooltip]{position:relative;cursor:help;border-bottom:1px dotted var(--muted)}
+[data-tooltip]:hover::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy-deep);color:#fff;padding:10px 14px;border-radius:8px;font-size:12px;font-weight:400;white-space:normal;width:280px;line-height:1.5;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,.25);text-transform:none;letter-spacing:0}
+[data-tooltip]:hover::before{content:'';position:absolute;bottom:calc(100% + 2px);left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy-deep);z-index:1000}
+/* CHART */
+.chart-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:20px;position:relative;height:300px}
+/* CONSIDERAÇÕES */
+.consid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.consid-card{background:#fff;border-left:4px solid var(--gold);border-radius:8px;padding:20px;display:flex;gap:14px}
+.consid-icon{font-size:24px;flex-shrink:0}
+.consid-content h4{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.consid-content p{font-size:13px;color:var(--muted);line-height:1.55}
+/* DECISÃO */
+.decisao-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);color:#fff;border-radius:16px;padding:32px;margin-top:24px}
+.decisao-box h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;color:var(--gold-light)}
+.decisao-box .title{font-size:24px;font-weight:800;margin-bottom:20px}
+.decisao-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.decisao-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:16px}
+.decisao-item label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:.7;margin-bottom:10px}
+.decisao-options{display:flex;gap:6px;flex-wrap:wrap}
+.dec-opt{padding:8px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:all .15s}
+.dec-opt:hover{background:rgba(255,255,255,.2)}
+.dec-opt.checked{background:var(--gold);border-color:var(--gold)}
+.dec-input{width:100%;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;font-size:14px;font-weight:700;font-family:inherit;color:#fff;font-variant-numeric:tabular-nums}
+.dec-input::placeholder{color:rgba(255,255,255,.4)}
+/* DISCLAIMERS */
+.disclaimers{font-size:11px;color:var(--muted);line-height:1.7;padding:32px 0;border-top:1px solid var(--border);margin-top:48px}
+.disclaimers p{margin-bottom:8px}
+.disclaimers strong{color:var(--text)}
+/* MODO APRESENTAÇÃO */
+body.presentation .sidebar{transform:translateX(-100%);transition:transform .3s}
+body.presentation main{margin-left:0;padding:0 40px}
+body.presentation .top-actions{top:14px;right:14px}
+body.presentation .section{padding:30px 0}
+body.presentation .section-title{font-size:38px}
+body.presentation .hero-title{font-size:50px}
+/* PRINT */
+@media print{
+  .sidebar,.top-actions,.filter-bar,.login-overlay{display:none!important}
+  main{margin-left:0;padding:0 20px}
+  .section{padding:20px 0;page-break-inside:avoid}
+  .kpi,.card,.proposta-card,.result-item{break-inside:avoid}
+  body{font-size:11px}
+  body.locked main,body.locked .sidebar,body.locked .top-actions{filter:none}
+  .hero-title,.section-title{color:var(--navy)!important}
+  .chart-wrap{height:200px}
+  @page{size:A4;margin:1.5cm}
+}
+/* RESPONSIVE */
+@media (max-width:1024px){
+  .sidebar{width:80px}
+  .sidebar-logo-text,.sidebar nav a span:not(.num){display:none}
+  main{margin-left:80px;padding:0 24px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .sim-grid{grid-template-columns:1fr}
+  .sim-controls{padding-right:0;border-right:0;border-bottom:1px solid var(--border);padding-bottom:24px}
+  .grid-2,.grid-3,.grid-4,.consid-grid,.decisao-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .sidebar{display:none}
+  main{margin-left:0;padding:0 16px}
+  .hero-title{font-size:30px}
+  .section-title{font-size:24px}
+  .kpi-grid{grid-template-columns:1fr}
+  .kpi-value{font-size:20px}
+}
+</style>
+</head>
+<body class="locked">
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <img src="cordier-logo.png" alt="Cordier">
+    <h2>Acesso Restrito</h2>
+    <p>Material confidencial · Cordier Investimentos / BTG Pactual</p>
+    <form id="loginForm">
+      <input type="text" id="loginUser" placeholder="Usuário" autocomplete="username" autofocus>
+      <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
+      <div class="login-error" id="loginError">Usuário ou senha inválidos.</div>
+      <button type="submit">Entrar</button>
+    </form>
+    <div class="login-footer">Conteúdo protegido. Não compartilhar sem autorização.</div>
+  </div>
+</div>
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img src="cordier-logo.png" alt="Cordier">
+    <div class="sidebar-logo-text">Cordier<small>Investimentos | BTG</small></div>
+  </div>
+  <nav>
+    <a href="#hero" class="active"><span class="num">1</span><span>Visão Geral</span></a>
+    <a href="#diagnostico"><span class="num">2</span><span>Diagnóstico</span></a>
+    <a href="#liquidez"><span class="num">3</span><span>Liquidez</span></a>
+    <a href="#propostas"><span class="num">4</span><span>7 Propostas</span></a>
+    <a href="#simulador"><span class="num">5</span><span>Simulador</span></a>
+    <a href="#sensibilidade"><span class="num">6</span><span>Sensibilidade</span></a>
+    <a href="#consideracoes"><span class="num">7</span><span>Considerações</span></a>
+    <a href="#pfpj"><span class="num">8</span><span>PF ou PJ?</span></a>
+    <a href="#decisao"><span class="num">9</span><span>Decisão</span></a>
+  </nav>
+  <div class="sidebar-footer">Edson Santos<br>edsones@gmail.com<br>13/05/2026</div>
+</aside>
+<div class="top-actions">
+  <button class="btn" onclick="togglePresentation()" id="btn-pres">⛶ Modo Apresentação</button>
+  <button class="btn btn-gold" onclick="window.print()">📄 Exportar PDF</button>
+</div>
+<main>
+<!-- HERO -->
+<section class="section" id="hero">
+  <span class="section-tag">Planejamento Patrimonial</span>
+  <h1 class="hero-title">Aquisição do Consultório<br>com a <em>carteira pagando a parcela</em></h1>
+  <p class="hero-subtitle">Estratégia patrimonial integrada para preservar capital, gerar renda mensal crescente e financiar a compra do consultório médico sem realização de deságio na carteira atual.</p>
+  <div class="hero-meta">
+    <span>👤 Cliente: <strong>Fernanda R.R.A.</strong></span>
+    <span>🩺 Perfil: <strong>Médica — Alta Renda</strong></span>
+    <span>👨‍💼 Assessor: <strong>Edson Santos</strong></span>
+    <span>📅 Referência: <strong>13/05/2026</strong></span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label" data-tooltip="Soma de todos os recursos investidos — Carteira BTG Pactual + custódia Bradesco (investimentos + previdência PGBL).">Patrimônio Total</div>
+      <div class="kpi-value">R$ 1,51 MM</div>
+      <div class="kpi-sub">BTG R$ 752k + Bradesco R$ 760k</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label" data-tooltip="Renda mensal real recebida em abril/2026 da carteira BTG (validada pelo extrato de créditos): cupons de LCA, CRA, CRI e distribuições de FIPs/FII.">Renda Mensal BTG</div>
+      <div class="kpi-value">R$ 7.152</div>
+      <div class="kpi-sub">Validado em abril/2026</div>
+    </div>
+    <div class="kpi" id="kpi-parcela">
+      <div class="kpi-label" data-tooltip="Primeira parcela do financiamento conforme a proposta selecionada no Simulador. Em tabela SAC, decresce ao longo do tempo.">Parcela Mensal</div>
+      <div class="kpi-value">R$ 7.304</div>
+      <div class="kpi-sub" id="kpi-parcela-sub">Santander Cordier · Residencial</div>
+    </div>
+  </div>
+  <!-- BLOCO UNIFICADO: significado + resumo -->
+  <div class="resumo-unico">
+    <h3>📌 Resumo em 30 segundos — o que a estratégia entrega</h3>
+    <p>Você tem <strong>R$ 1,51 milhão investidos</strong> entre BTG e Bradesco. Sua carteira BTG, sozinha, <strong>já gera R$ 7.152/mês</strong> de renda passiva validada (cupons de LCAs, CRAs, CRIs e FIPs). Esse fluxo, sem mexer no seu salário, <strong>já paga a parcela típica do financiamento</strong> nas propostas selecionadas.</p>
+    <p>A estratégia: <strong>manter a previdência no Bradesco</strong> (<span class="destacar">R$ 164.839</span>) para diversificação bancária e <strong>portabilizar para o BTG</strong> o restante (<span class="destacar">R$ 595.378</span>) — esses recursos serão realocados gradualmente em renda isenta conforme os vencimentos liberam capital.</p>
+    <p>Escolha o banco/financiamento que mais te agradar nas próximas seções. <strong>Todas as propostas pagam a parcela com folga</strong> — a sobra mensal vira amortização extra e antecipa a quitação do financiamento.</p>
+    <div class="stvm-nota">
+      💡 <strong>Sobre a portabilização:</strong> a transferência via <span data-tooltip="Sistema de Transferência de Valores Mobiliários — sistema do mercado de capitais que migra a custódia de um título de uma instituição para outra SEM resgatar, vender ou liquidar o papel. O título continua produzindo cupons normalmente, agora creditados na conta do BTG.">STVM</span> acontece <strong>imediatamente</strong> — todos os títulos do Bradesco (exceto a previdência) migram já para a custódia BTG. Os papéis seguem rendendo normalmente, agora dentro do BTG, e a <strong>realocação para ativos de maior yield acontece à medida que cada papel vence</strong> dentro da Cordier.
+    </div>
+  </div>
+</section>
+<!-- DIAGNÓSTICO -->
+<section class="section" id="diagnostico">
+  <span class="section-tag">Capítulo 2</span>
+  <h2 class="section-title">Diagnóstico Patrimonial</h2>
+  <p class="section-subtitle">Sua fotografia patrimonial hoje, dividida por instituição e por classe de ativo. Base para todas as decisões a seguir.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🏦 BTG Pactual <span style="float:right;font-weight:400;color:var(--muted)">26 papéis</span></div>
+      <div class="card-value">R$ 751.857</div>
+      <div class="card-meta" style="margin-bottom:14px">Carteira focada em renda mensal — 78,5% Renda Fixa isenta</div>
+      <table class="table" style="font-size:12px">
+        <tr><td><span data-tooltip="Letra de Crédito do Agronegócio — papel isento de IR, lastreado em recebíveis do agronegócio.">LCA (14 papéis)</span></td><td class="num">R$ 382.403</td><td class="num">50,9%</td></tr>
+        <tr><td><span data-tooltip="Certificado de Recebíveis do Agronegócio — papel isento de IR, com lastro em direitos creditórios do agronegócio.">CRA (10)</span></td><td class="num">R$ 192.905</td><td class="num">25,7%</td></tr>
+        <tr><td><span data-tooltip="Certificado de Recebíveis Imobiliários — papel isento de IR, lastreado em recebíveis imobiliários.">CRI (2)</span></td><td class="num">R$ 15.061</td><td class="num">2,0%</td></tr>
+        <tr><td><span data-tooltip="Fundos de Investimento em Participações e Fundos de Investimento Imobiliário — distribuem rendimentos periodicamente.">FIPs / FII (4)</span></td><td class="num">R$ 129.960</td><td class="num">17,3%</td></tr>
+        <tr><td>PGBL + Bitcoin + Ouro</td><td class="num">R$ 31.528</td><td class="num">4,2%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">🏦 Bradesco Principal <span style="float:right;font-weight:400;color:var(--muted)">PL 30/04/26</span></div>
+      <div class="card-value">R$ 760.218</div>
+      <div class="card-meta" style="margin-bottom:14px">Carteira mais focada em valorização — proventos R$ 2.207/mês em abril</div>
+      <table class="table" style="font-size:12px">
+        <tr><td>Investimentos Bradesco (fundos + renda fixa)</td><td class="num">R$ 595.378</td><td class="num">78,3%</td></tr>
+        <tr><td><span data-tooltip="PGBL — Plano Gerador de Benefícios Livres. Plano de previdência complementar. Será mantido no Bradesco para diversificação bancária e por custo tributário de resgate antecipado.">Previdência Bradesco (PGBL)</span></td><td class="num">R$ 164.839</td><td class="num">21,7%</td></tr>
+      </table>
+    </div>
+  </div>
+  <!-- Banner BTG separado -->
+  <div class="banner-btg">
+    <div class="banner-btg-icon">💰</div>
+    <div class="banner-btg-text">
+      <h4>Carteira BTG já gera renda passiva validada</h4>
+      <p>Em abril/2026, a carteira BTG creditou <strong>R$ 7.152,23 em cupons e distribuições</strong> (LCAs, CRAs, CRIs e FIPs/FII). Essa renda já cobre a parcela inicial do financiamento na maioria dos cenários — a <strong>folga vira amortização extra</strong> e antecipa a quitação do financiamento. Veja a simulação completa no <a href="#simulador" style="color:#33691E;font-weight:700;text-decoration:underline">Capítulo 5 — Simulador</a>.</p>
+    </div>
+  </div>
+</section>
+<!-- LIQUIDEZ -->
+<section class="section" id="liquidez">
+  <span class="section-tag">Capítulo 3</span>
+  <h2 class="section-title">Mapa de Liquidez</h2>
+  <p class="section-subtitle">Visão completa de onde está cada recurso: o que está disponível em 2026 para a entrada do imóvel, o que segue rendendo nos títulos BTG preservados (sem necessidade de venda no secundário) e o que fica intocado para diversificação bancária.</p>
+
+  <!-- BLOCO 1: DISPONÍVEL EM 2026 -->
+  <h3 class="liq-subhead"><span class="dot green"></span>1. Disponível em 2026 — sem deságio</h3>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Cobre integralmente a entrada de qualquer cenário sem realizar prejuízo no mercado secundário. Os papéis já estão (ou estarão) na custódia BTG via STVM — vencem ao longo de 2026 e o capital fica disponível na conta para entrada/ITBI ou realocação.</p>
+  <table class="table">
+    <thead>
+      <tr><th>Origem</th><th>Custódia atual</th><th>Vencimento</th><th class="num">Valor (R$)</th><th>Estratégia</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Fundos abertos D+0</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>Imediato</td><td class="num">142.365</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr><td>LCI Bradesco PRÉ</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>27/05/2026</td><td class="num">2.407</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr><td>LCI Pine 94,5% CDI</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>30/07/2026</td><td class="num">60.125</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr><td>LCA ABC-Brasil PRÉ</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>13/08/2026</td><td class="num">100.555</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr><td>LIG Bradesco 95% CDI</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>27/10/2026</td><td class="num">23.945</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr><td>LCA BDMG 95,5% CDI</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>30/11/2026</td><td class="num">12.556</td><td><span style="color:var(--navy)">Migra hoje via STVM, usa em 2026</span></td></tr>
+      <tr style="background:var(--ok);font-weight:700"><td colspan="3">TOTAL DISPONÍVEL EM 2026 (sem deságio)</td><td class="num">R$ 341.954</td><td><span style="color:var(--green)">Vira caixa em 2026</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- BLOCO 2: BRADESCO — VENCIMENTOS FUTUROS + PREVIDÊNCIA -->
+  <h3 class="liq-subhead"><span class="dot navy"></span>2. Bradesco — vencimentos futuros (pós-2026) + Previdência</h3>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Investimentos do Bradesco que <strong>não vencem em 2026</strong>. <strong>Migram hoje via STVM</strong> (junto com os do bloco 1) — passam à custódia BTG agora mesmo, seguem rendendo na taxa do papel original, e <strong>a realocação para maior yield acontece à medida que cada papel vence</strong>, já dentro da Cordier. <strong>A única coisa que fica no Bradesco é a previdência</strong>, apenas para compor patrimônio e manter diversificação bancária.</p>
+  <table class="table">
+    <thead>
+      <tr><th>Papel / Produto</th><th>Custódia destino</th><th>Vencimento</th><th class="num">Valor (R$)</th><th>Estratégia</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Demais investimentos Bradesco</td><td><span class="tag-inst tag-btg">BTG (via STVM)</span></td><td>2027 em diante</td><td class="num">~253.424</td><td><span style="color:var(--navy)">Migra hoje via STVM, realoca conforme vence</span></td></tr>
+      <tr style="background:#F5F5F5"><td>PGBL Bradesco Vida e Previdência</td><td><span class="tag-inst tag-bradesco">Bradesco</span></td><td>aposentadoria</td><td class="num">164.839</td><td><span style="color:#6B7488"><strong>Não mexer — compõe patrimônio</strong></span></td></tr>
+      <tr style="background:#E3ECF8;font-weight:700"><td colspan="3">TOTAL BRADESCO — FORA DA JANELA DE 2026</td><td class="num">R$ 418.263</td><td><span style="color:var(--navy)">Preservado</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--muted);font-style:italic;margin-top:8px">Valor aproximado dos "Demais investimentos Bradesco" obtido pela diferença entre o PL total dos investimentos Bradesco (R$ 595.378, excluindo previdência) e os recursos disponíveis em 2026 (R$ 341.954). Detalhamento papel a papel a confirmar com extrato.</p>
+
+  <!-- BANNER CONSOLIDADO -->
+  <div style="background:linear-gradient(135deg,#FFF8E1 0%,#FFE082 100%);border:2px solid var(--gold);border-radius:12px;padding:18px 24px;margin-top:24px;display:flex;gap:16px;align-items:center">
+    <div style="font-size:28px">🎯</div>
+    <div style="flex:1;font-size:13px;line-height:1.6;color:var(--text)">
+      <strong style="color:var(--navy)">Conclusão do mapa:</strong> R$ 341.954 disponíveis em 2026 cobrem a entrada do imóvel sem realizar deságio · R$ 253.424 em investimentos Bradesco pós-2026 seguem rendendo e migram para o BTG via STVM conforme vencem · <strong>só a previdência (R$ 164.839) permanece no Bradesco</strong>, compondo o patrimônio.
+    </div>
+  </div>
+</section>
+<!-- PROPOSTAS -->
+<section class="section" id="propostas">
+  <span class="section-tag">Capítulo 4</span>
+  <h2 class="section-title">As 7 Propostas de Financiamento</h2>
+  <p class="section-subtitle">Comparativo transparente das 8 simulações recebidas — 6 residenciais e 2 comerciais, de 4 bancos diferentes. Clique em qualquer card para selecionar no Simulador abaixo.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">Todas (8)</button>
+    <button class="filter-btn" data-filter="Residencial">🏠 Residencial (6)</button>
+    <button class="filter-btn" data-filter="Comercial">🏢 Comercial (2)</button>
+  </div>
+  <div class="propostas-grid" id="propostasGrid"></div>
+  <!-- RÉGUA VISUAL -->
+  <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-top:32px;text-transform:uppercase;letter-spacing:.6px">📏 Ranking visual — ordenado por CET</h3>
+  <p style="font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:14px">Linha curta = melhor CET. Cada barra mostra também a 1ª parcela do banco.</p>
+  <div id="reguaVisual" style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px"></div>
+  <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:12px">💡 <strong>O melhor CET nem sempre é a melhor parcela.</strong> Bancos com prazo mais longo distribuem o custo em mais parcelas (menor mensal), bancos com prazo curto concentram (maior mensal). Olhe os dois.</p>
+  <div style="margin-top:24px;background:#FFF8E1;border-left:4px solid var(--gold);padding:16px 20px;border-radius:8px;font-size:13px;line-height:1.6">
+    <strong style="color:var(--gold)">⚠️ Notas de validação:</strong> As 4 propostas Fernanda marcadas como <em>"CET preliminar"</em> vieram da jornada self-service do app — geralmente <span data-tooltip="Custo Efetivo Total: inclui juros + seguros (MIP, DFI) + tarifas + IOF. É o custo verdadeiro do crédito além da taxa de juros nominal.">CET</span> pode subir 0,5–1,5 p.p. em análise formal. <strong style="color:var(--navy)">Bradesco Cordier:</strong> a oferta residencial veio na modalidade <span data-tooltip="Crédito Habitacional com FGTS — modalidade do Bradesco que exige saldo de FGTS para uso. Cliente é PJ há tempo e não tem FGTS utilizável.">CHH FGTS</span> (não aplicável para PJ) e a oferta comercial ainda não chegou. Ambas pendentes para próxima reunião.
+  </div>
+</section>
+<!-- SIMULADOR -->
+<section class="section" id="simulador">
+  <span class="section-tag">Capítulo 5 — Coração da Análise</span>
+  <h2 class="section-title">Simulador Interativo</h2>
+  <p class="section-subtitle">Ajuste os parâmetros e veja em tempo real o impacto na renda mensal, folga sobre a parcela e <strong>tempo real de quitação acelerada</strong> (simulação SAC mês a mês com toda a folga aplicada como amortização extra).</p>
+  <div class="simulador">
+    <div class="sim-grid">
+      <div class="sim-controls">
+        <div class="sim-control">
+          <label>Banco / Proposta</label>
+          <select class="select" id="selBanco"></select>
+        </div>
+        <div class="sim-control">
+          <label>Yield Alvo (a.a. isento) <span class="info" data-tooltip="Taxa de retorno anual estimada para a carteira de renda fixa isenta (LCAs/CRAs/CRIs/FIPs). 11% é o cenário base conservador para o perfil da cliente.">ⓘ</span></label>
+          <div class="slider-wrap">
+            <input type="range" class="slider" id="slYield" min="9" max="13" step="0.5" value="11">
+            <div class="slider-value" id="lblYield">11,0%</div>
+          </div>
+        </div>
+        <div class="sim-control reserva-box">
+          <label>🔨 Reserva para Reforma <span class="info" data-tooltip="Valor segregado em CDB liquidez diária para custear a reforma e adequação do imóvel ao consultório (instalações, mobiliário, equipamentos médicos). Não entra na máquina de dividendos. Decisão a tomar na reunião.">ⓘ</span></label>
+          <div class="reserva-input">
+            <span>R$</span>
+            <input type="number" id="inReserva" value="50000" min="0" max="150000" step="5000">
+          </div>
+          <input type="range" class="slider" id="slReserva" min="0" max="150000" step="5000" value="50000" style="margin-top:10px">
+          <div class="reserva-hint">Para reforma e adequação do consultório (instalações, mobiliário, equipamentos médicos). Mexer aqui altera TODOS os cálculos.</div>
+        </div>
+        <!-- APORTES EXTRAS -->
+        <div class="sim-control aporte-box">
+          <label>💸 Aportes Extras Mensais <span class="info" data-tooltip="Valor que a Fernanda decida poupar todo mês a partir da renda do trabalho (salário CLT + pró-labore da clínica). Esse aporte entra na máquina de dividendos: gera novos cupons isentos que se somam à renda existente, aumentando a folga sobre a parcela e antecipando a quitação. Modelo: capital acumulado cresce mês a mês e gera renda crescente via yield isento.">ⓘ</span></label>
+          <div class="aporte-input">
+            <span>R$</span>
+            <input type="number" id="inAporte" value="0" min="0" max="5000" step="500">
+            <span style="font-size:11px;color:#33691E">/mês</span>
+          </div>
+          <input type="range" class="slider" id="slAporte" min="0" max="5000" step="500" value="0" style="margin-top:10px">
+          <div class="aporte-hint">📈 Cada R$ 500/mês de aporte extra acelera a quitação em <strong>vários meses</strong>. Capital cresce, gera mais renda, sobra mais para amortizar.</div>
+        </div>
+      </div>
+      <div class="sim-results">
+        <div class="result-item">
+          <div class="result-label">Disponível para Migrar ao BTG</div>
+          <div class="result-value" id="rDisponivel">R$ 448.378</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">(–) Reserva para Reforma</div>
+          <div class="result-value" id="rReserva">R$ 50.000</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">(=) Capital Inicial para Renda Isenta</div>
+          <div class="result-value" id="rCapital">R$ 398.378</div>
+        </div>
+        <div class="result-item highlight">
+          <div class="result-label">Renda Nova (Bradesco realocado) — <span style="font-weight:400;font-size:11px" data-tooltip="Média mensal da renda gerada pelo capital migrado do Bradesco ao longo do prazo de quitação. Modelo de rampa: parte que vence em 2026 (~57%) já rende no yield alvo desde o mês 1. Parte pós-2026 (~43%) rende ~9,5% a.a. (taxa do papel original) e é liberada uniformemente entre o mês 13 e o mês 60, conforme cada papel vence dentro do BTG. À medida que vence, vira yield alvo.">média durante a rampa ⓘ</span></div>
+          <div class="result-value" id="rRendaNova">R$ 3.479</div>
+        </div>
+        <div class="result-item highlight">
+          <div class="result-label">+ Renda Carteira BTG Atual</div>
+          <div class="result-value" id="rRendaBTG">R$ 7.152</div>
+        </div>
+        <div class="result-item aporte-row" id="boxAporte" style="display:none">
+          <div class="result-label"><strong>+ Renda gerada pelos Aportes Extras (média)</strong></div>
+          <div class="result-value" id="rRendaAporte"><strong>R$ 0</strong></div>
+        </div>
+        <div class="result-item highlight">
+          <div class="result-label"><strong>= RENDA MENSAL TOTAL</strong></div>
+          <div class="result-value" id="rRendaTotal"><strong>R$ 10.631</strong></div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">(–) Parcela Financiamento (inicial)</div>
+          <div class="result-value neg" id="rParcela">R$ 7.304</div>
+        </div>
+        <div class="result-item folga-pos" id="boxFolga">
+          <div class="result-label"><strong>🎯 FOLGA MENSAL (vira amortização extra)</strong></div>
+          <div class="result-value pos" id="rFolga"><strong>R$ 3.327</strong></div>
+        </div>
+        <div class="result-item quitacao-box">
+          <div class="result-label"><strong>⚡ Quitação acelerada com folga 100%</strong><br><span style="font-size:11px;color:var(--muted);font-weight:400">Simulação SAC mês a mês</span></div>
+          <div class="result-value" style="color:var(--gold);text-align:right"><strong id="rTempoAnos" style="font-size:26px;display:block;line-height:1.1" data-tooltip="Tempo total estimado até a quitação completa do financiamento na simulação SAC mês a mês, considerando: (1) toda a folga mensal direcionada como amortização extra, (2) renda da carteira BTG atual, (3) renda gerada pela realocação Bradesco→BTG e (4) renda incremental dos aportes extras.">~7 anos</strong><span style="font-size:11px;color:var(--muted);font-weight:400">vs <strong style="color:var(--red);text-decoration:line-through">~33 anos</strong> contratados <span id="rTempoMeses" style="color:var(--green);font-weight:700" data-tooltip="Detalhe em meses: a simulação roda mês a mês até zerar o saldo devedor. Valor exato dos meses entre parênteses.">(82 meses vs 400)</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="margin-top:24px;height:280px">
+      <canvas id="chartSimulador"></canvas>
+    </div>
+    <div style="margin-top:18px;background:#F0F7FF;border-left:4px solid var(--navy);border-radius:8px;padding:14px 18px;font-size:12px;line-height:1.6;color:var(--text)">
+      <strong style="color:var(--navy)">🧭 Modelo de rampa:</strong> a portabilidade STVM acontece <strong>toda agora</strong>, mas a renda nova cresce <strong>gradualmente</strong>. R$ 341.954 (parte que vence em 2026) já rende no yield alvo desde o mês 1. Os ~R$ 253.424 pós-2026 continuam rendendo ~9,5% a.a. até cada papel vencer, e são realocados no yield alvo entre 2027 e 2030. A linha "Renda Nova" acima mostra a <strong>média ao longo de todo o prazo de quitação</strong> — começa menor e vai crescendo conforme a rampa.
+    </div>
+  </div>
+</section>
+<!-- SENSIBILIDADE -->
+<section class="section" id="sensibilidade">
+  <span class="section-tag">Capítulo 6</span>
+  <h2 class="section-title">Análise de Sensibilidade</h2>
+  <p class="section-subtitle">Como a estratégia se comporta em 3 cenários de yield para o cenário e banco selecionados acima. Mesmo no pessimista (9%), a estrutura segue funcionando.</p>
+  <table class="table" id="tblSens">
+    <thead><tr><th>Yield Anual (isento)</th><th class="num">Renda Nova Mensal</th><th class="num">Renda Total</th><th class="num">Parcela</th><th class="num">Folga</th><th class="num">Quitação Acelerada</th></tr></thead>
+    <tbody id="bodySens"></tbody>
+  </table>
+</section>
+<!-- CONSIDERAÇÕES -->
+<section class="section" id="consideracoes">
+  <span class="section-tag">Capítulo 7</span>
+  <h2 class="section-title">Considerações & Próximos Passos</h2>
+  <p class="section-subtitle">Pontos operacionais e tributários para validar antes da escritura.</p>
+  <div class="consid-grid">
+    <div class="consid-card" style="border-left-color:var(--red)">
+      <div class="consid-icon">🏛️</div>
+      <div class="consid-content">
+        <h4>🔴 Modalidade Residencial × Comercial — IPTU define</h4>
+        <p>O imóvel está em <strong>zona mista</strong>. A escolha entre financiar como residencial ou comercial muda <strong>significativamente</strong> as condições: residencial tem CET até <strong>3,55 p.p. menor</strong> (Itaú) e prazo até 60% maior, mas o alvará sanitário da clínica pode exigir IPTU comercial. <strong>Validar com a cliente na próxima reunião</strong> qual é o registro atual do IPTU e o que será exigido pela ANVISA/Vigilância Sanitária.</p>
+      </div>
+    </div>
+    <div class="consid-card">
+      <div class="consid-icon">🏢</div>
+      <div class="consid-content">
+        <h4>Estrutura PJ — PF aluga para PJ futura</h4>
+        <p>A cliente não tem PJ própria (a atual é com sócia). Recomendação: comprar como PF, criar PJ unipessoal da clínica, PF aluga para PJ. Aluguel vira despesa dedutível. Validar com contador médico.</p>
+      </div>
+    </div>
+    <div class="consid-card">
+      <div class="consid-icon">🛡️</div>
+      <div class="consid-content">
+        <h4>Seguro de Vida Profissional</h4>
+        <p>O <span data-tooltip="Morte e Invalidez Permanente: seguro obrigatório do financiamento que quita o saldo devedor em caso de morte ou invalidez total.">MIP</span> do financiamento cobre só saldo devedor. Considerar seguro complementar para invalidez profissional — médica que não pode clinicar deixa de gerar renda.</p>
+      </div>
+    </div>
+    <div class="consid-card">
+      <div class="consid-icon">📋</div>
+      <div class="consid-content">
+        <h4>Cláusulas a verificar no contrato</h4>
+        <p>1) <span data-tooltip="Pagamento de parte do saldo devedor antes do prazo, reduzindo juros futuros. É um direito do consumidor por lei desde 2007.">Amortização antecipada</span> sem multa (lei). 2) Direito de portabilidade futura (caso Selic caia). 3) Possibilidade de refinanciamento.</p>
+      </div>
+    </div>
+    <div class="consid-card">
+      <div class="consid-icon">⚠️</div>
+      <div class="consid-content">
+        <h4>Validar com Dpto. de Crédito</h4>
+        <p>Bradesco Cordier: reoferta residencial em SFH/SFI (sem FGTS) + oferta comercial ainda pendente. Validar com cliente o registro do IPTU (residencial ou comercial) na próxima reunião — define a modalidade aplicável.</p>
+      </div>
+    </div>
+    <div class="consid-card">
+      <div class="consid-icon">💼</div>
+      <div class="consid-content">
+        <h4>Diversificação Bancária</h4>
+        <p>A <span data-tooltip="Plano de previdência complementar com benefício fiscal: contribuições deduzem da base do IR (limite 12% da renda). Resgate é tributado — não vale a pena antecipar.">previdência</span> (R$ 164.839) fica no Bradesco. Mantém relacionamento bancário diversificado e evita custo tributário de resgate antecipado do PGBL.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- PF vs PJ -->
+<section class="section" id="pfpj">
+  <span class="section-tag">Capítulo 8</span>
+  <h2 class="section-title">Comprar como PF ou PJ?</h2>
+  <p class="section-subtitle">Como o imóvel será usado pela clínica (PJ futura), há duas rotas possíveis para a compra. Cada uma tem implicações tributárias, de crédito e patrimoniais.</p>
+  <div class="grid-2" style="margin-top:8px">
+    <div class="card" style="border-top:4px solid #1565C0">
+      <div class="card-title" style="color:#1565C0">👤 Comprar como PESSOA FÍSICA</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Financiamento no CPF da Fernanda — caminho convencional do crédito imobiliário.</p>
+      <div style="font-size:13px;line-height:1.7">
+        <p style="margin-bottom:10px"><strong style="color:var(--green)">✓ Vantagens:</strong></p>
+        <ul style="padding-left:18px;color:var(--text);margin-bottom:14px">
+          <li>Aprovação <strong>mais rápida</strong> (análise de renda PF)</li>
+          <li>Taxas <strong>tipicamente menores</strong> (acesso a <span data-tooltip="Sistema Financeiro de Habitação — linha de crédito com taxas controladas pelo governo, LTV até 80%, valor máximo de R$ 1,5 MM por imóvel.">SFH</span>/<span data-tooltip="Sistema de Financiamento Imobiliário — linha sem teto de valor, taxas livres de mercado, mais flexível mas geralmente com taxas maiores que o SFH.">SFI</span> residencial e linhas para profissionais liberais)</li>
+          <li>Patrimônio do imóvel <strong>fica protegido</strong> de problemas da clínica (separação patrimonial)</li>
+          <li>Vinculação simples ao financiamento — só CPF e comprovação de renda</li>
+        </ul>
+        <p style="margin-bottom:10px"><strong style="color:var(--red)">✗ Desvantagens:</strong></p>
+        <ul style="padding-left:18px;color:var(--text)">
+          <li><strong>Não deduz</strong> juros do imóvel no IR PF</li>
+          <li>Aluguel recebido da PJ é tributado no <span data-tooltip="Recolhimento mensal de IR sobre renda como aluguel, com tabela progressiva (até 27,5%). Isenção até R$ 2.640/mês.">carnê-leão</span> (até 27,5%)</li>
+          <li>Patrimônio cresce no nome da PF — sucessão mais simples mas mais visível</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid #7B1FA2">
+      <div class="card-title" style="color:#7B1FA2">🏢 Comprar como PESSOA JURÍDICA</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Financiamento no CNPJ da clínica — imóvel entra no ativo imobilizado da empresa.</p>
+      <div style="font-size:13px;line-height:1.7">
+        <p style="margin-bottom:10px"><strong style="color:var(--green)">✓ Vantagens:</strong></p>
+        <ul style="padding-left:18px;color:var(--text);margin-bottom:14px">
+          <li><strong>Juros e depreciação</strong> são despesas dedutíveis (reduzem <span data-tooltip="Imposto de Renda Pessoa Jurídica — tributo federal sobre o lucro da empresa.">IRPJ</span> + <span data-tooltip="Contribuição Social sobre o Lucro Líquido — tributo federal adicional sobre o lucro da empresa, também dedutível com despesas operacionais.">CSLL</span>)</li>
+          <li>IPTU, condomínio, manutenção também viram despesa</li>
+          <li>Sem necessidade de contrato fictício de aluguel PF→PJ</li>
+          <li>Em <span data-tooltip="Regime tributário em que tributos são calculados sobre uma margem presumida de lucro. Comum para clínicas com faturamento até R$ 78 milhões/ano.">Lucro Presumido</span>, ganho potencial na venda futura</li>
+        </ul>
+        <p style="margin-bottom:10px"><strong style="color:var(--red)">✗ Desvantagens:</strong></p>
+        <ul style="padding-left:18px;color:var(--text)">
+          <li><strong>⚠ PJ nova não tem crédito imobiliário</strong> — bancos exigem balanços de 12+ meses, faturamento comprovado, garantias</li>
+          <li>Fernanda entraria como <strong>avalista</strong> com aval patrimonial pessoal — risco efetivamente equivalente ao da PF</li>
+          <li>Taxas PJ geralmente <strong>maiores</strong> que PF (sem acesso a SFH)</li>
+          <li>Burocracia maior (alvarás, balanços, declarações)</li>
+          <li>Imóvel <strong>vinculado à clínica</strong> — venda futura ou encerramento mais complexo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:24px;background:linear-gradient(135deg,#FFF8E1 0%,#FFE082 100%);border:2px solid var(--gold);border-radius:12px;padding:24px 28px">
+    <h3 style="color:var(--navy);font-size:16px;font-weight:800;margin-bottom:12px">🎯 Recomendação técnica — Estrutura híbrida (PF + PJ)</h3>
+    <p style="font-size:13px;line-height:1.7;color:var(--text);margin-bottom:12px">Considerando que a Fernanda <strong>não tem PJ própria criada</strong> (a atual é em sociedade e não serve para a clínica nova), o caminho mais eficiente é:</p>
+    <ol style="padding-left:20px;font-size:13px;line-height:1.8;color:var(--text)">
+      <li><strong>Compra como PF agora</strong> (Fernanda CPF) — crédito mais rápido, taxas melhores, sem dependência de PJ que ainda não existe</li>
+      <li><strong>Cria a PJ unipessoal da clínica</strong> em paralelo (<span data-tooltip="Classificação Nacional de Atividades Econômicas — código que identifica a atividade da empresa para a Receita Federal e órgãos reguladores. 8630-5/01 é o código para atividades de atenção ambulatorial médica.">CNAE</span> 8630-5/01 — atividade médica, Lucro Presumido)</li>
+      <li><strong>PF aluga o imóvel para a PJ</strong> com contrato formal a valor de mercado</li>
+      <li><strong>Aluguel pago pela PJ</strong> = despesa operacional dedutível (reduz IRPJ ~6,73% + CSLL ~2,88%)</li>
+      <li><strong>Aluguel recebido pela PF</strong> = renda tributável, mas pode ser estruturada para minimizar imposto</li>
+    </ol>
+    <p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:12px;border-top:1px dashed var(--gold);padding-top:12px">⚖️ Esta estrutura é <strong>padrão para médicos e profissionais liberais</strong>. Recomendamos validar com contador especializado em médicos antes da escritura — a depender do faturamento projetado da clínica, pode haver ajustes na configuração do aluguel.</p>
+  </div>
+</section>
+<!-- DECISÃO -->
+<section class="section" id="decisao">
+  <span class="section-tag">Capítulo 9 — Decisão da Reunião</span>
+  <h2 class="section-title">Decisão Capturada Hoje</h2>
+  <p class="section-subtitle">Marque aqui durante a conversa as escolhas feitas. Os valores não são salvos — exporte o PDF ao final para registro.</p>
+  <div class="decisao-box">
+    <h3>Decisões a registrar</h3>
+    <div class="title">📋 Acordo da Reunião — Cliente + Cordier</div>
+    <div class="decisao-grid">
+      <div class="decisao-item">
+        <label>Banco escolhido</label>
+        <div class="decisao-options">
+          <button class="dec-opt" onclick="toggleDec(this,'banco')">Santander</button>
+          <button class="dec-opt" onclick="toggleDec(this,'banco')">Itaú</button>
+          <button class="dec-opt" onclick="toggleDec(this,'banco')">Bradesco</button>
+        </div>
+      </div>
+      <div class="decisao-item">
+        <label>Modalidade</label>
+        <div class="decisao-options">
+          <button class="dec-opt" onclick="toggleDec(this,'modalidade')">🏠 Residencial</button>
+          <button class="dec-opt" onclick="toggleDec(this,'modalidade')">🏢 Comercial</button>
+        </div>
+      </div>
+      <div class="decisao-item">
+        <label>Reserva p/ reforma (R$)</label>
+        <input type="text" class="dec-input" placeholder="Ex: 50.000" id="decReserva">
+      </div>
+    </div>
+    <div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15);font-size:12px;opacity:.8">
+      ✓ Estratégia: previdência fica no Bradesco · realocação Bradesco → BTG via STVM (sem liquidação) inicia em junho · escritura em agosto/2026 · contador especializado em médicos para estrutura PJ
+    </div>
+  </div>
+  <!-- TIMELINE -->
+  <h3 style="font-size:14px;font-weight:700;color:var(--navy);margin-top:32px;text-transform:uppercase;letter-spacing:.6px">🗓️ Próximos passos — sua jornada até a clínica funcionando</h3>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:20px;position:relative">
+    <div style="position:absolute;top:34px;left:5%;right:5%;height:3px;background:linear-gradient(to right,var(--gold),var(--navy));z-index:0"></div>
+    <div style="text-align:center;position:relative;z-index:1">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--green);border:4px solid #fff;margin:24px auto 12px;box-shadow:0 0 0 2px var(--green)"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">Hoje · Maio/26</div>
+      <div style="font-size:11px;color:var(--muted);padding:0 10px;line-height:1.4">Reunião com a Cordier · decisão estratégica</div>
+    </div>
+    <div style="text-align:center;position:relative;z-index:1">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--gold);border:4px solid #fff;margin:24px auto 12px;box-shadow:0 0 0 2px var(--gold)"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">Maio · Junho/26</div>
+      <div style="font-size:11px;color:var(--muted);padding:0 10px;line-height:1.4"><strong>Portabilidade STVM concluída</strong> — todo o saldo Bradesco já migrado para o BTG · análise de crédito no banco escolhido</div>
+    </div>
+    <div style="text-align:center;position:relative;z-index:1">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--gold);border:4px solid #fff;margin:24px auto 12px;box-shadow:0 0 0 2px var(--gold)"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">Junho · Julho/26</div>
+      <div style="font-size:11px;color:var(--muted);padding:0 10px;line-height:1.4">CET final confirmado · criação da PJ unipessoal da clínica · papéis seguem rendendo dentro do BTG</div>
+    </div>
+    <div style="text-align:center;position:relative;z-index:1">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--gold);border:4px solid #fff;margin:24px auto 12px;box-shadow:0 0 0 2px var(--gold)"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">Agosto/26</div>
+      <div style="font-size:11px;color:var(--muted);padding:0 10px;line-height:1.4">Escritura do imóvel · 1ª parcela · contrato aluguel PF→PJ</div>
+    </div>
+    <div style="text-align:center;position:relative;z-index:1">
+      <div style="width:24px;height:24px;border-radius:50%;background:var(--navy);border:4px solid #fff;margin:24px auto 12px;box-shadow:0 0 0 2px var(--navy)"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">2027+</div>
+      <div style="font-size:11px;color:var(--muted);padding:0 10px;line-height:1.4">Clínica funcionando · revisões trimestrais · amortizações extras</div>
+    </div>
+  </div>
+</section>
+<!-- DISCLAIMERS -->
+<div class="disclaimers">
+  <p><strong>Avisos importantes (suitability e responsabilidade fiduciária):</strong></p>
+  <p>1. Os yields apresentados são projeções com base em condições de mercado de 13/05/2026. Não constituem promessa de rentabilidade. Investimentos em renda fixa, mesmo isentos, estão sujeitos a risco de crédito do emissor.</p>
+  <p>2. As 4 propostas marcadas como "CET preliminar" foram simulações via app self-service do banco. CET final pode variar após análise formal de crédito.</p>
+  <p>3. Bradesco Cordier: tanto a oferta residencial (CHH FGTS, não aplicável) quanto a oferta comercial estão pendentes. Aguardando reofertas para a próxima reunião.</p>
+  <p>4. As condições de financiamento podem ser ajustadas ao se confirmar que o imóvel é comercial e não residencial.</p>
+  <p>5. Esta análise considera o perfil de investidor da cliente, sua tolerância a risco e horizonte de longo prazo. Diversificação preservada via manutenção da previdência no Bradesco.</p>
+  <p>6. A unificação de custódia no BTG Pactual passa a contar com assessoria dedicada (Cordier Investimentos), inexistente na conta Bradesco.</p>
+  <p>7. A simulação de quitação acelerada assume yield constante e folga 100% direcionada para amortização extra. Em cenário real, a cliente pode optar por reinvestir parte da folga em vez de amortizar.</p>
+  <p>8. A simulação de aportes extras assume aporte mensal contínuo durante todo o prazo do financiamento, integralmente alocado em ativos com o yield selecionado. Mudanças no fluxo de aporte alteram o tempo de quitação.</p>
+  <p style="margin-top:18px"><strong>Edson Santos</strong> — Cordier Investimentos / BTG Pactual<br>edsones@gmail.com · Vila Olímpia, São Paulo · Documento gerado em 13/05/2026 · Material confidencial</p>
+</div>
+</main>
+<script>
+// ============ LOGIN ============
+const AUTH = {
+  user: '92c778ed016379a4bb64f46d261dee6575c054785204d7f8c8cef9b77c414aa6',
+  pass: '54ee1b6cce793bf9b72903ecdf5ab1f20a5a78ebb3fcd32032c69de4e0d62d2c'
+};
+async function sha256(str){
+  const buf = new TextEncoder().encode(str);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function checkLogin(e){
+  e.preventDefault();
+  const u = document.getElementById('loginUser').value.trim().toLowerCase();
+  const p = document.getElementById('loginPass').value;
+  const uHash = await sha256(u);
+  const pHash = await sha256(p);
+  if (uHash === AUTH.user && pHash === AUTH.pass) {
+    document.body.classList.remove('locked');
+    document.getElementById('loginOverlay').style.display = 'none';
+    sessionStorage.setItem('authed', '1');
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+document.getElementById('loginForm').addEventListener('submit', checkLogin);
+if (sessionStorage.getItem('authed') === '1') {
+  document.body.classList.remove('locked');
+  document.getElementById('loginOverlay').style.display = 'none';
+}
+// ============ DATA ============
+const DADOS = {
+  rendaBTG: 7152.23,
+  propostas: [
+    {id:'santFern', nome:'Santander', sufixo:'Fernanda', modalidade:'Residencial', taxa:11.69, tipo:'+ TR', cet:12.68, parcela:4981.71, cenario:'A', imovel:700000, financia:400000, entrada:300000, itbi:35000, prazo:400, status:'preliminar', obs:'Menor CET do Cenário A — em validação'},
+    {id:'bradFern', nome:'Bradesco', sufixo:'Fernanda', modalidade:'Residencial', taxa:11.70, tipo:'+ TR', cet:13.08, parcela:4942.41, cenario:'A', imovel:700000, financia:400000, entrada:300000, itbi:35000, prazo:400, status:'preliminar', obs:'Menor 1ª parcela — em validação'},
+    {id:'itauFern', nome:'Itaú', sufixo:'Fernanda', modalidade:'Residencial', taxa:12.00, tipo:'+ TR', cet:13.66, parcela:5075.22, cenario:'A', imovel:700000, financia:400000, entrada:300000, itbi:35000, prazo:400, status:'preliminar', obs:'Em validação'},
+    {id:'bbFern', nome:'BB', sufixo:'Fernanda', modalidade:'Residencial', taxa:15.22, tipo:'Pré', cet:16.68, parcela:6247.14, cenario:'A', imovel:700000, financia:400000, entrada:300000, itbi:35000, prazo:360, status:'descartado', obs:'CET muito alto — descartado (PJ não tem salário BB)'},
+    {id:'santCordRes', nome:'Santander', sufixo:'Cordier', modalidade:'Residencial', taxa:11.69, tipo:'+ TR', cet:12.67, parcela:7304.06, cenario:'B', imovel:735000, financia:588000, entrada:147000, itbi:0, prazo:400, status:'best', obs:'Menor CET de todas · 80% LTV'},
+    {id:'itauCordRes', nome:'Itaú', sufixo:'Cordier', modalidade:'Residencial', taxa:11.90, tipo:'FIXA', cet:13.27, parcela:7395.72, cenario:'B', imovel:735000, financia:588000, entrada:147000, itbi:0, prazo:400, status:'fixa', obs:'TAXA FIXA · 80% LTV · 400 meses'},
+    {id:'santCordCom', nome:'Santander', sufixo:'Cordier', modalidade:'Comercial', taxa:11.69, tipo:'+ TR', cet:14.02, parcela:6747.20, cenario:'B', imovel:735000, financia:514500, entrada:220500, itbi:0, prazo:360, status:'validado', obs:'70% LTV · Entrada maior R$ 220k'},
+    {id:'itauCordCom', nome:'Itaú', sufixo:'Cordier', modalidade:'Comercial', taxa:14.80, tipo:'FIXA', cet:16.82, parcela:9577.50, cenario:'B', imovel:732500, financia:586000, entrada:146500, itbi:0, prazo:240, status:'fixa', obs:'TAXA FIXA · 80% LTV · Prazo apenas 240 meses'}
+  ]
+};
+// ============ STATE ============
+const state = {
+  banco: 'santCordRes',
+  yield: 0.11,
+  reserva: 50000,
+  aporte: 0
+};
+// ============ FORMATTING ============
+const fmtBRL = v => 'R$ ' + (v||0).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+const fmtBRLfull = v => 'R$ ' + (v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtPct = v => (v*100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
+// ============ SAC ITERATIVO COM RAMPA ============
+// Modelo:
+// (1) Capital IMEDIATO: parte que vence em 2026 — rende yield ALVO desde o mês 1.
+//     Após reservar p/ reforma, o que sobra entra direto na máquina de renda isenta.
+// (2) Capital LEGADO: parte que vence pós-2026 (~R$ 253.424) — já está na custódia BTG via STVM,
+//     mas continua rendendo na taxa do papel original (estimado em ~9,5% a.a.) até vencer.
+//     Liberado uniformemente entre o mês 13 e o mês 60 (rampa de 48 meses, 2027–2030).
+// (3) Aporte mensal: sempre entra no capital de alto yield (alvo).
+// A folga (renda total - parcela) vai integralmente para amortização extra.
+const PROP_IMEDIATA_VS_LEGADO = 341954 / 595378; // 0.5743 — apenas para distribuir o "Capital para Renda Isenta" entre os 2 baldes
+const YIELD_LEGADO_ANUAL = 0.095; // taxa estimada média dos papéis legados (Bradesco) até vencerem
+const RAMPA_INICIO = 13;  // mês em que começa a liberar capital legado
+const RAMPA_FIM = 60;     // mês em que termina (jan/2027 → dez/2030)
+function calcQuitacao(prop, capitalInicial, rendaBTG, yieldAnual, aporteMensal){
+  if (!prop.financia || prop.financia === 0) return { meses: 0, rendaAporteMedia: 0, rendaNovaMedia: 0, rendaNovaMes1: 0, rendaNovaFinalRampa: 0 };
+  const fin = prop.financia;
+  const prazoOriginal = prop.prazo || 400;
+  const taxaMensal = Math.pow(1 + prop.taxa/100, 1/12) - 1;
+  const yAlvoMensal = Math.pow(1 + yieldAnual, 1/12) - 1;
+  const yLegMensal = Math.pow(1 + YIELD_LEGADO_ANUAL, 1/12) - 1;
+  const amortSAC = fin / prazoOriginal;
+  const segMedio = 360;
+  // Distribui capitalInicial entre imediato e legado
+  let capitalAlto = capitalInicial * PROP_IMEDIATA_VS_LEGADO; // já rende yield alvo
+  let capitalLeg = capitalInicial * (1 - PROP_IMEDIATA_VS_LEGADO); // rende yield legado, libera na rampa
+  const janelaRampa = RAMPA_FIM - RAMPA_INICIO + 1;
+  const liberacaoMensal = capitalLeg / janelaRampa;
+  let saldo = fin;
+  let meses = 0;
+  let somaRendaAporte = 0;
+  let somaRendaNova = 0;
+  let rendaNovaMes1 = 0;
+  let rendaNovaFinalRampa = 0;
+  const MAX = prazoOriginal;
+  while (saldo > 0.01 && meses < MAX) {
+    meses++;
+    // Renda da carteira realocada/migrada (NÃO inclui BTG legado nem aporte)
+    // Para isolar "renda nova", usamos só o que veio da migração + aportes:
+    const rendaNovaMes = capitalAlto * yAlvoMensal + Math.max(0, capitalLeg) * yLegMensal;
+    somaRendaNova += rendaNovaMes;
+    if (meses === 1) rendaNovaMes1 = rendaNovaMes;
+    if (meses === RAMPA_FIM) rendaNovaFinalRampa = rendaNovaMes;
+    // Renda total do mês: BTG estável + renda nova
+    const rendaTotal = rendaBTG + rendaNovaMes;
+    // Componente do aporte (renda gerada pelo capital que VEIO de aportes desde o início)
+    // Aporte sempre entra no capitalAlto e rende yield alvo.
+    // Renda dos aportes ≈ (capitalAlto - capitalAltoInicial - liberacoes_acumuladas) * yAlvoMensal
+    // Mas é mais simples calcular como capital_aportado_acumulado * yAlvoMensal:
+    const aportesAcumulados = aporteMensal * meses;
+    const rendaDosAportes = aportesAcumulados * yAlvoMensal;
+    somaRendaAporte += rendaDosAportes;
+    const juros = saldo * taxaMensal;
+    const parcelaCorrente = juros + amortSAC + segMedio;
+    const folga = Math.max(0, rendaTotal - parcelaCorrente);
+    const amortTotal = amortSAC + folga;
+    if (amortTotal > saldo) { saldo = 0; break; }
+    saldo -= amortTotal;
+    // Movimentação no fim do mês:
+    // 1) Aporte entra no capital alto (passa a render no mês seguinte)
+    capitalAlto += aporteMensal;
+    // 2) Se estamos na janela de rampa, libera uma fatia do capital legado → vira capital alto
+    if (meses >= RAMPA_INICIO && meses <= RAMPA_FIM && capitalLeg > 0) {
+      const libera = Math.min(liberacaoMensal, capitalLeg);
+      capitalLeg -= libera;
+      capitalAlto += libera;
+    }
+  }
+  return {
+    meses: Math.min(meses, MAX),
+    rendaAporteMedia: meses > 0 ? somaRendaAporte / meses : 0,
+    rendaNovaMedia: meses > 0 ? somaRendaNova / meses : 0,
+    rendaNovaMes1,
+    rendaNovaFinalRampa
+  };
+}
+// ============ CALC ============
+function calcular(){
+  const prop = DADOS.propostas.find(p=>p.id===state.banco);
+  const saidaCaixa = prop.entrada + prop.itbi;
+  const disponivel = 595378 - saidaCaixa;
+  const reserva = Math.min(state.reserva, Math.max(0, disponivel));
+  const capital = Math.max(0, disponivel - reserva);
+  // Simula SAC com rampa (modelo principal)
+  const sim = calcQuitacao(prop, capital, DADOS.rendaBTG, state.yield, state.aporte);
+  // Renda nova MÉDIA durante a janela de quitação (já considera a rampa)
+  const rendaNova = sim.rendaNovaMedia;
+  const rendaAporteMedia = sim.rendaAporteMedia;
+  const rendaTotal = DADOS.rendaBTG + rendaNova + rendaAporteMedia;
+  const folga = rendaTotal - prop.parcela;
+  const anos = Math.max(1, Math.round(sim.meses/12));
+  return { saidaCaixa, disponivel, prop, reserva, capital, rendaNova, rendaNovaMes1: sim.rendaNovaMes1, rendaNovaFinalRampa: sim.rendaNovaFinalRampa, rendaAporteMedia, rendaTotal, folga, anos, meses: sim.meses };
+}
+// ============ RENDER ============
+function atualizar(){
+  const r = calcular();
+  // KPI Hero
+  document.querySelector('#kpi-parcela .kpi-value').textContent = fmtBRL(r.prop.parcela);
+  document.getElementById('kpi-parcela-sub').textContent = r.prop.nome + ' ' + r.prop.sufixo + ' · ' + r.prop.modalidade;
+  // Simulador
+  document.getElementById('rDisponivel').textContent = fmtBRL(r.disponivel);
+  document.getElementById('rReserva').textContent = fmtBRL(r.reserva);
+  document.getElementById('rCapital').textContent = fmtBRL(r.capital);
+  document.getElementById('rRendaNova').textContent = fmtBRL(r.rendaNova);
+  document.getElementById('rRendaBTG').textContent = fmtBRL(DADOS.rendaBTG);
+  // Linha de aporte: só mostra se houver
+  const boxAporte = document.getElementById('boxAporte');
+  if (state.aporte > 0) {
+    boxAporte.style.display = 'flex';
+    document.getElementById('rRendaAporte').innerHTML = '<strong>' + fmtBRL(r.rendaAporteMedia) + '</strong>';
+  } else {
+    boxAporte.style.display = 'none';
+  }
+  document.getElementById('rRendaTotal').innerHTML = '<strong>' + fmtBRL(r.rendaTotal) + '</strong>';
+  document.getElementById('rParcela').textContent = fmtBRL(r.prop.parcela);
+  document.getElementById('rFolga').innerHTML = '<strong>' + fmtBRL(r.folga) + '</strong>';
+  document.getElementById('rTempoAnos').textContent = '~' + r.anos + ' anos';
+  document.getElementById('rTempoMeses').textContent = '(' + r.meses + ' meses vs 400)';
+  const boxFolga = document.getElementById('boxFolga');
+  boxFolga.className = 'result-item ' + (r.folga >= 0 ? 'folga-pos' : 'folga-neg');
+  document.getElementById('rFolga').className = 'result-value ' + (r.folga >= 0 ? 'pos' : 'neg');
+  // Charts
+  if (window.chartSim) {
+    window.chartSim.data.datasets[0].data = [r.rendaTotal, r.prop.parcela, Math.max(0, r.folga)];
+    window.chartSim.update();
+  }
+  // Régua visual
+  renderRegua();
+  // Sensibilidade
+  renderSensibilidade(r.prop, r.capital);
+}
+function renderRegua(){
+  const ativas = DADOS.propostas.filter(p => p.status !== 'descartado' && p.status !== 'aguardando').sort((a,b) => a.cet - b.cet);
+  if (!ativas.length) return;
+  const maxCet = Math.max(...ativas.map(p => p.cet));
+  const minCet = Math.min(...ativas.map(p => p.cet));
+  const cont = document.getElementById('reguaVisual');
+  if (!cont) return;
+  cont.innerHTML = ativas.map((p,i) => {
+    const pct = ((p.cet - minCet) / (maxCet - minCet || 1)) * 100;
+    const w = Math.max(15, pct);
+    const cor = i===0 ? '#BF8F00' : (i<3 ? '#1F3864' : '#5B7DB5');
+    const sel = p.id === state.banco ? 'border:2px solid var(--gold);background:#FFF8E1' : '';
+    return `<div style="display:grid;grid-template-columns:200px 1fr 100px 120px;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;margin-bottom:6px;cursor:pointer;${sel}" onclick="state.banco='${p.id}';document.getElementById('selBanco').value='${p.id}';renderPropostas(document.querySelector('.filter-btn.active').dataset.filter);atualizar();document.getElementById('simulador').scrollIntoView({behavior:'smooth'});">
+      <div style="font-size:12px;font-weight:600;color:var(--text)">${p.nome} ${p.sufixo}<br><span style="font-size:10px;color:var(--muted);font-weight:400">${p.modalidade==='Residencial'?'🏠':'🏢'} ${p.modalidade}</span></div>
+      <div style="background:#F0F2F5;border-radius:4px;height:14px;position:relative;overflow:hidden"><div style="background:${cor};width:${w}%;height:100%;border-radius:4px;transition:width .4s"></div></div>
+      <div style="font-size:13px;font-weight:700;color:var(--navy);text-align:right">${p.cet.toFixed(2)}%</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gold);text-align:right">${fmtBRL(p.parcela)}</div>
+    </div>`;
+  }).join('');
+}
+function renderSensibilidade(prop, capital){
+  const body = document.getElementById('bodySens');
+  body.innerHTML = '';
+  [0.09, 0.10, 0.11, 0.12, 0.13].forEach(y => {
+    const sim = calcQuitacao(prop, capital, DADOS.rendaBTG, y, state.aporte);
+    const renda = sim.rendaNovaMedia;
+    const total = DADOS.rendaBTG + renda + sim.rendaAporteMedia;
+    const folga = total - prop.parcela;
+    const anos = Math.max(1, Math.round(sim.meses/12));
+    const isBase = Math.abs(y - state.yield) < 0.001;
+    const tr = document.createElement('tr');
+    if (isBase) tr.style.background = '#FFF8E1';
+    tr.innerHTML = '<td><strong>' + fmtPct(y) + '</strong>' + (isBase ? ' ← atual' : '') + '</td>' +
+      '<td class="num">' + fmtBRL(renda) + '</td>' +
+      '<td class="num">' + fmtBRL(total) + '</td>' +
+      '<td class="num">' + fmtBRL(prop.parcela) + '</td>' +
+      '<td class="num ' + (folga>=0?'pos':'neg') + '">' + fmtBRL(folga) + '</td>' +
+      '<td class="num"><strong>~' + anos + ' anos</strong></td>';
+    body.appendChild(tr);
+  });
+}
+// ============ PROPOSTAS RENDER ============
+function renderPropostas(filter='all'){
+  const grid = document.getElementById('propostasGrid');
+  grid.innerHTML = '';
+  DADOS.propostas.forEach(p => {
+    if (filter === 'Residencial' && p.modalidade !== 'Residencial') return;
+    if (filter === 'Comercial' && p.modalidade !== 'Comercial') return;
+    const card = document.createElement('div');
+    let classes = ['proposta-card'];
+    if (p.status === 'best') classes.push('best');
+    if (p.status === 'preliminar') classes.push('preliminar');
+    if (p.status === 'descartado') classes.push('descartado');
+    if (p.status === 'refazer') classes.push('refazer');
+    if (p.id === state.banco) classes.push('selected');
+    card.className = classes.join(' ');
+    card.onclick = () => {
+      state.banco = p.id;
+      preencherSelect();
+      renderPropostas(filter);
+      atualizar();
+      document.getElementById('simulador').scrollIntoView({behavior:'smooth'});
+    };
+    let badge = '';
+    if (p.status === 'best') badge = '<div class="proposta-badge badge-best">🏆 MENOR CET GERAL</div>';
+    else if (p.status === 'preliminar') badge = '<div class="proposta-badge badge-preliminar">⚠ CET preliminar — em validação</div>';
+    else if (p.status === 'descartado') badge = '<div class="proposta-badge badge-descartado">✗ Descartado (PJ sem salário BB)</div>';
+    else if (p.status === 'refazer') badge = '<div class="proposta-badge badge-refazer">⚠ Refazer — sem FGTS</div>';
+    else if (p.status === 'aguardando') badge = '<div class="proposta-badge badge-refazer">⏳ Aguardando oferta comercial</div>';
+    else if (p.status === 'fixa') badge = '<div class="proposta-badge badge-validado">✓ Validado · TAXA FIXA</div>';
+    else badge = '<div class="proposta-badge badge-validado">✓ Validado</div>';
+    card.innerHTML = `
+      <div class="proposta-head">
+        <div class="proposta-nome">${p.nome} ${p.sufixo}${p.tipo === 'FIXA' ? '<span class="badge-fixa">FIXA</span>' : ''}</div>
+        <div class="proposta-modalidade ${p.modalidade.toLowerCase()}">${p.modalidade === 'Residencial' ? '🏠' : '🏢'} ${p.modalidade}</div>
+      </div>
+      <div class="proposta-row"><span class="label">Taxa nominal</span><span class="value">${p.taxa.toLocaleString('pt-BR',{minimumFractionDigits:2})}% ${p.tipo}</span></div>
+      <div class="proposta-row"><span class="label" data-tooltip="Custo Efetivo Total: inclui juros + seguros + tarifas. Métrica padrão para comparar financiamentos.">CET</span><span class="value cet">${p.cet.toLocaleString('pt-BR',{minimumFractionDigits:2})}%</span></div>
+      <div class="proposta-row"><span class="label">1ª parcela</span><span class="value parcela">${fmtBRLfull(p.parcela)}</span></div>
+      ${badge}
+    `;
+    grid.appendChild(card);
+  });
+}
+// ============ SELECT BANCO ============
+function preencherSelect(){
+  const sel = document.getElementById('selBanco');
+  sel.innerHTML = '';
+  DADOS.propostas.filter(p => p.status !== 'descartado' && p.status !== 'aguardando').forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.nome + ' ' + p.sufixo + ' — ' + p.cet.toFixed(2) + '% CET · ' + fmtBRL(p.parcela);
+    if (p.id === state.banco) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  sel.value = state.banco;
+}
+// ============ EVENTS ============
+document.getElementById('selBanco').onchange = e => {
+  state.banco = e.target.value;
+  renderPropostas(document.querySelector('.filter-btn.active').dataset.filter);
+  atualizar();
+};
+document.getElementById('slYield').oninput = e => {
+  state.yield = parseFloat(e.target.value) / 100;
+  document.getElementById('lblYield').textContent = (state.yield*100).toLocaleString('pt-BR',{minimumFractionDigits:1}) + '%';
+  atualizar();
+};
+const inReserva = document.getElementById('inReserva');
+const slReserva = document.getElementById('slReserva');
+inReserva.oninput = e => {
+  state.reserva = parseInt(e.target.value) || 0;
+  slReserva.value = state.reserva;
+  atualizar();
+};
+slReserva.oninput = e => {
+  state.reserva = parseInt(e.target.value);
+  inReserva.value = state.reserva;
+  atualizar();
+};
+const inAporte = document.getElementById('inAporte');
+const slAporte = document.getElementById('slAporte');
+inAporte.oninput = e => {
+  state.aporte = parseInt(e.target.value) || 0;
+  slAporte.value = state.aporte;
+  atualizar();
+};
+slAporte.oninput = e => {
+  state.aporte = parseInt(e.target.value);
+  inAporte.value = state.aporte;
+  atualizar();
+};
+document.querySelectorAll('.filter-btn').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.filter-btn').forEach(x => x.classList.toggle('active', x === b));
+    renderPropostas(b.dataset.filter);
+  };
+});
+// ============ NAV ACTIVE ============
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+// ============ MODO APRESENTAÇÃO ============
+function togglePresentation(){
+  document.body.classList.toggle('presentation');
+  const btn = document.getElementById('btn-pres');
+  if (document.body.classList.contains('presentation')) {
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    btn.textContent = '✕ Sair Apresentação';
+  } else {
+    if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
+    btn.textContent = '⛶ Modo Apresentação';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (!document.body.classList.contains('presentation')) return;
+  const ids = ['hero','diagnostico','liquidez','propostas','simulador','sensibilidade','consideracoes','pfpj','decisao'];
+  const current = navLinks[Array.from(navLinks).findIndex(a => a.classList.contains('active'))];
+  const idx = ids.findIndex(id => current && current.getAttribute('href') === '#' + id);
+  if (e.key === 'ArrowRight' && idx < ids.length-1) document.getElementById(ids[idx+1]).scrollIntoView({behavior:'smooth'});
+  if (e.key === 'ArrowLeft' && idx > 0) document.getElementById(ids[idx-1]).scrollIntoView({behavior:'smooth'});
+  if (e.key === 'Escape') togglePresentation();
+});
+// ============ DECISÃO ============
+function toggleDec(btn, group){
+  btn.parentElement.querySelectorAll('.dec-opt').forEach(b => b.classList.remove('checked'));
+  btn.classList.add('checked');
+}
+// ============ CHARTS ============
+Chart.defaults.font.family = "'Inter',-apple-system,sans-serif";
+Chart.defaults.color = '#6B7488';
+Chart.defaults.animation.duration = 600;
+window.addEventListener('load', () => {
+  window.chartSim = new Chart(document.getElementById('chartSimulador'), {
+    type:'bar',
+    data:{
+      labels:['Renda Total','Parcela','Folga p/ amortizar'],
+      datasets:[{
+        label:'R$/mês',
+        data:[10631,7304,3327],
+        backgroundColor:['#1F3864','#C00000','#548235'],
+        borderRadius:8,
+        barThickness:48
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      plugins:{legend:{display:false},title:{display:true,text:'Renda Mensal × Parcela × Folga (vira amortização extra)',font:{size:13,weight:'700'},color:'#1F3864'},tooltip:{callbacks:{label:c => 'R$ ' + c.raw.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0})}}},
+      scales:{x:{ticks:{callback:v => 'R$ '+v.toLocaleString('pt-BR')}}},
+      animation:{duration:600,easing:'easeOutQuart'}
+    }
+  });
+  preencherSelect();
+  renderPropostas('all');
+  atualizar();
+});
+</script>
+</body>
+</html>
